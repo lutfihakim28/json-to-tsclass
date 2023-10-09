@@ -1,10 +1,19 @@
 # json-to-tsclass
 
-This is class generator from JSON data, it use [class-transformer](https://github.com/typestack/class-transformer).
+This is class generator from plain JSON data, it uses [class-transformer](https://github.com/typestack/class-transformer). You can try the demo [here](https://json-to-tsclass.netlify.app).
+
+## About Current Version
+
+This is verision `1.0.0`. In this version you can convert a plain JSON into a typescript class that uses [class-transformer](https://github.com/typestack/class-transformer) for decorator. All feture in this version includes:
+
+- Copy a class into clipboard
+- Download single result as `.ts` file
+- Download all generated results contains `.ts` file that compressed into `.zip`
 
 ## Incoming Feature
 
-This is verision `0.1.0`. The next version will add feature to download `.ts` file.
+- Compatibility with [openapis](https://www.openapis.org/) standard
+- Compatibility with `json-schema`
 
 ## Recommended IDE Setup
 
