@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Codemirror } from 'vue-codemirror'
 import { ref, computed } from 'vue'
-import { convertJSON } from '@/utils/convertJSON'
+import { convertJSON, resetClasses } from '@/utils/convertJSON'
 import { json } from '@codemirror/lang-json'
 import { oneDark } from '@codemirror/theme-one-dark'
 import * as JSZip from 'jszip'
@@ -20,6 +20,7 @@ const results = computed(() => {
 
 function generate() {
   ts.value = []
+  resetClasses()
   ts.value = convertJSON(JSON.parse(jsonText.value))
 }
 

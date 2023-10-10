@@ -2,7 +2,11 @@ import { convertArray } from './convertArray'
 import { convertObject } from './convertObject'
 import { convertPrimitive } from './convertPrimitive'
 
-const classes: string[] = []
+let classes: string[] = []
+
+export function resetClasses() {
+  classes = []
+}
 
 export function convertJSON(value: Record<string, unknown>, key?: string) {
   const nestedData: Record<string, unknown>[] = []
