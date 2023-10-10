@@ -175,6 +175,7 @@ function download() {
   display: flex;
   column-gap: 16px;
   flex: 1 0 0;
+  overflow: hidden;
 }
 
 .generate-button {
