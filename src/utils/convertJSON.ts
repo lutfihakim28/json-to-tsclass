@@ -15,9 +15,12 @@ export function convertJSON(value: Record<string, unknown>, key?: string) {
   let convertedKey: string = ''
   if (key) {
     keys = key.split('_')
-    convertedKey = keys.length > 1
-      ? keys[0].charAt(0).toUpperCase() + keys[0].slice(1) + keys[1].charAt(0).toUpperCase() + keys[1].slice(1)
-      : keys[0].charAt(0).toUpperCase() + keys[0].slice(1)
+    convertedKey = keys.map((key) => {
+      return key.charAt(0).toUpperCase() + key.slice(1)
+    }).join('')
+    // convertedKey = keys.length > 1
+    //   ? keys[0].charAt(0).toUpperCase() + keys[0].slice(1) + keys[1].charAt(0).toUpperCase() + keys[1].slice(1)
+    //   : keys[0].charAt(0).toUpperCase() + keys[0].slice(1)
   }
   const results = [`export class ${key ? convertedKey : 'Data'} {`]
   let isNested = false
