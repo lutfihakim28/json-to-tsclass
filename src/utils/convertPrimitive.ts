@@ -1,8 +1,9 @@
 export function convertPrimitive(key: string, value: unknown): string {
   const keys = key.split('_')
-  const convertedKey = keys.length > 1
-    ? keys[0] + keys[1].charAt(0).toUpperCase() + keys[1].slice(1)
-    : keys[0]
+  const convertedKey = keys.map((key, index) => {
+    if (index === 0) return key
+    return key.charAt(0).toUpperCase() + key.slice(1)
+  }).join('')
   return `  @Expose({ name: '${key}' })
-  public ${convertedKey}: ${typeof value}`
+  public ${convertedKey}: ${value ? typeof value : 'any'}`
 }

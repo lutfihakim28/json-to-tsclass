@@ -84,13 +84,13 @@ function download() {
     </div>
     <section class="main">
       <section style="flex: 1 1 0; border: 1px solid teal; overflow-y: auto; border-radius: 8px;">
-        <Codemirror v-model="jsonText" placeholder="Input JSON here" autofocus :extensions="[json(), oneDark]" />
+        <Codemirror v-model="jsonText" placeholder="Input JSON here" style="min-height: 100%;" autofocus :extensions="[json(), oneDark]" />
       </section>
       <section style="flex: 0 0 10%; align-self: center; display: flex; flex-direction: column; row-gap: 8px;">
         <button @click="generate" class="generate-button">Generate</button>
         <button @click="download" class="generate-button" :style="{ opacity: ts && ts?.length ? 1 : 0, pointerEvents: ts && ts?.length ? 'auto' : 'none' }">Download All</button>
       </section>
-      <section style="flex: 1 1 0; overflow-y: auto; display: flex; flex-direction: column; row-gap: 8px;">
+      <section style="flex: 1 1 0; overflow-y: auto; display: flex; flex-direction: column; position: relative; row-gap: 8px; background-color: #282c34; border-radius: 8px; border: 1px solid teal; padding: 8px;">
         <section v-for="(result, index) in results" :key="index" class="result-container">
           <div class="result-header">
             <p>{{ result.className }}</p>
@@ -111,7 +111,7 @@ function download() {
             <pre>{{ result.value }}</pre>
           </section>
         </section>
-        <p v-if="!ts || ts?.length === 0" style="text-align: center; font-style: italic;">Please Input a JSON first</p>
+        <p v-if="!ts || ts?.length === 0" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font-style: italic;">Please Input a JSON first</p>
       </section>
     </section>
   </section>
@@ -119,7 +119,7 @@ function download() {
 
 <style scoped>
 * {
-  scrollbar-width: thin;
+  scrollbar-width: thin !important;
   scrollbar-color: #008080 #ffffff00;
 }
 *::-webkit-scrollbar {
@@ -190,8 +190,11 @@ function download() {
 }
 
 .result-container {
-  border: 1px solid teal;
-  border-radius: 8px;
+  border-radius: 4px;
+  background-color: #181818;
+  /* box-shadow: 4px 4px 6px -2px teal;
+  -webkit-box-shadow: 4px 4px 6px -2px teal;
+  -moz-box-shadow: 4px 4px 6px -2px teal; */
 }
 
 .result-header {
@@ -200,6 +203,8 @@ function download() {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
 }
 
 .copy-button {

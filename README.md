@@ -4,11 +4,30 @@ This is class generator from plain JSON data, it uses [class-transformer](https:
 
 ## About Current Version
 
-This is verision `1.0.0`. In this version you can convert a plain JSON into a typescript class that uses [class-transformer](https://github.com/typestack/class-transformer) for decorator. All feture in this version includes:
+This is verision `1.1.0`. In this version you can convert a plain JSON into a typescript class that uses [class-transformer](https://github.com/typestack/class-transformer) for decorator. All feture in this version includes:
 
 - Copy a class into clipboard
 - Download single result as `.ts` file
 - Download all generated results contains `.ts` file that compressed into `.zip`
+
+## Changelog
+
+- [FIX] Error naming class and property. In previous version when you have `snake_case_key` it would be converted to `snakeCase`, it is fixed now and will be converted to `snakeCaseKey`
+- [UPDATE] UI Improvement. I just added a container on a result side.
+- [ADD] Tupple type when data contains array of multiple element type. Example:
+
+    ```
+    {
+        "data": ['string', 1234, false, null]
+    }
+    ```
+
+    It would be converted to:
+
+    ```
+    @Expose({ name: 'data' })
+    data: [string, number, boolean, any]
+    ```
 
 ## Incoming Feature
 

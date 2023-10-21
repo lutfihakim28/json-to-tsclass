@@ -1,17 +1,19 @@
 export function convertArray(key: string, value: unknown): string {
   const keys = key.split('_')
-  const convertedKey = keys.length > 1
-    ? keys[0] + keys[1].charAt(0).toUpperCase() + keys[1].slice(1)
-    : keys[0]
-  let elementType: string | undefined
-  (value as unknown[]).forEach((el) => {
-    const type = typeof el
-    if (!elementType) {
-      elementType = type
-    } else if (elementType !== type) {
-      elementType = 'any'
-    }
-  })
+  const convertedKey = keys.map((key, index) => {
+    if (index === 0) return key
+    return key.charAt(0).toUpperCase() + key.slice(1)
+  }).join('')
+  const isTupple = (value as unknown[]).length !== 0 && new Set(value as unknown[]).size !== 1;
+  let types: string
+  if (isTupple) {
+    types = JSON
+      .stringify((value as unknown[]).map((el) => el ? typeof el : 'any'))
+      .replaceAll('"', '')
+      .replaceAll(',', ', ')
+  } else {
+    types = `${typeof (value as unknown[])[0]}[]`
+  }
   return `  @Expose({ name: '${key}' })
-  public ${convertedKey}: ${elementType}[]`
+  public ${convertedKey}: ${types}`
 }
