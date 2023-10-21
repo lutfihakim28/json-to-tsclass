@@ -5,5 +5,5 @@ export function convertPrimitive(key: string, value: unknown): string {
     return key.charAt(0).toUpperCase() + key.slice(1)
   }).join('')
   return `  @Expose({ name: '${key}' })
-  public ${convertedKey}: ${value ? typeof value : 'any'}`
+  public ${convertedKey}: ${value !== null ? typeof value : 'any'}`
 }
