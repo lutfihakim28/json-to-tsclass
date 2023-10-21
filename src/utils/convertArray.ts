@@ -8,7 +8,7 @@ export function convertArray(key: string, value: unknown): string {
   let types: string
   if (isTupple) {
     types = JSON
-      .stringify((value as unknown[]).map((el) => el ? typeof el : 'any'))
+      .stringify((value as unknown[]).map((el) => el !== null ? typeof el : 'any'))
       .replaceAll('"', '')
       .replaceAll(',', ', ')
   } else {
