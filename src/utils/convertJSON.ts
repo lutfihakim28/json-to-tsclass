@@ -25,7 +25,7 @@ export function convertJSON(value: Record<string, unknown>, key?: string) {
   const results = [`export class ${key ? convertedKey : 'Data'} {`]
   let isNested = false
   Object.keys(value).forEach((key, index) => {
-    if (typeof value[key] === 'object' && !(value[key] instanceof Array)) {
+    if (typeof value[key] === 'object' && value[key] !== null && !(value[key] instanceof Array)) {
       results.push(`${convertObject(key)}${index === Object.keys(value).length - 1 ? '' : '\n'}`)
       nestedData.push(value[key] as Record<string, unknown>)
       nestedDataKey.push(key)
