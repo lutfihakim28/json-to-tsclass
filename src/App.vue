@@ -19,6 +19,7 @@ const results = computed(() => {
 })
 
 function generate() {
+  if (!jsonText.value) return
   ts.value = []
   resetClasses()
   ts.value = convertJSON(JSON.parse(jsonText.value))
