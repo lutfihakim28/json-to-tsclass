@@ -4,19 +4,21 @@ This is class generator from plain JSON data, it uses [class-transformer](https:
 
 ## About Current Version
 
-This is verision `1.1.0`. In this version you can convert a plain JSON into a typescript class that uses [class-transformer](https://github.com/typestack/class-transformer) for decorator. All feture in this version includes:
+This is verision `1.2.0`. In this version you can convert a plain JSON into a typescript class that uses [class-transformer](https://github.com/typestack/class-transformer) for decorator. All feture in this version includes:
 
-- Copy a class into clipboard
-- Download single result as `.ts` file
-- Download all generated results contains `.ts` file that compressed into `.zip`
+- [FIX] Download all issue in production. In the previous version, `Download All` feature got error inside the library. I found the solution to this problem from [here](https://github.com/Stuk/jszip/issues/890#issuecomment-1554749244).
+- [UPDATE] UI Improvement on the result field. I use [vue-codemirror](https://github.com/surmon-china/vue-codemirror) in both `JSON` editor and now the result.
+- [ADD] import required classes when the class have nested property that refer to another class.
 
 ## Changelog
+
+### V1.1
 
 - [FIX] Error naming class and property. In previous version when you have `snake_case_key` it would be converted to `snakeCase`, it is fixed now and will be converted to `snakeCaseKey`
 - [UPDATE] UI Improvement. I just added a container on a result side.
 - [ADD] Tupple type when data contains array of multiple element type. Example:
 
-    ```
+    ```json
     {
         "data": ['string', 1234, false, null]
     }
@@ -24,13 +26,22 @@ This is verision `1.1.0`. In this version you can convert a plain JSON into a ty
 
     It would be converted to:
 
-    ```
+    ```typescript
     @Expose({ name: 'data' })
     data: [string, number, boolean, any]
     ```
 
+### V1.0
+
+- Initialize Project
+- Convert JSON to `typescript` class
+- Copy a class into clipboard
+- Download single result as `.ts` file
+- Download all generated results contains `.ts` file that compressed into `.zip`. I am using [JSZIP](https://github.com/Stuk/jszip) library for this feature.
+
 ## Incoming Feature
 
+- Implement plain `typescript` class alongside with `class-transformer`
 - Compatibility with [openapis](https://www.openapis.org/) standard
 - Compatibility with `json-schema`
 

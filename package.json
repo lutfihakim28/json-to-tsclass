@@ -1,6 +1,6 @@
 {
   "name": "json-to-tsclass",
-  "version": "1.1.0",
+  "version": "1.2",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -11,6 +11,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.1",
     "@codemirror/lang-json": "^6.0.1",
     "@codemirror/theme-one-dark": "^6.1.2",
     "class-transformer": "^0.5.1",
