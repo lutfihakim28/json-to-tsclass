@@ -51,7 +51,7 @@ export function convertJSON(value: Record<string, unknown>, key?: string) {
     })
     results.unshift(`import { Expose, Type } from 'class-transformer'`)
   } else {
-    results.unshift("import { Expose } from 'class-transformer'\n")
+    results.unshift("import { Expose } from 'class-transformer'")
   }
   classes.push([...results, '}'].join('\n'))
   if (nestedData.length > 0) {
