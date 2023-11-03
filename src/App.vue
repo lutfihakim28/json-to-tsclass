@@ -85,7 +85,7 @@ function download() {
     </div>
     <section class="main">
       <section style="flex: 1 1 0; border: 1px solid teal; overflow-y: auto; border-radius: 8px;">
-        <Codemirror v-model="jsonText" placeholder="Input JSON here" style="min-height: 100%;" autofocus :extensions="[json(), oneDark]" />
+        <Codemirror v-model="jsonText" placeholder="Input JSON here" style="min-height: 100%; height: 100%;" autofocus :extensions="[json(), oneDark]" />
       </section>
       <section style="flex: 0 0 10%; align-self: center; display: flex; flex-direction: column; row-gap: 8px;">
         <button @click="generate" class="generate-button">Generate</button>
@@ -119,17 +119,22 @@ function download() {
 </template>
 
 <style scoped>
-* {
+*, .main :deep(.cm-editor .cm-scroller) {
   scrollbar-width: thin !important;
   scrollbar-color: #008080 #ffffff00;
 }
 *::-webkit-scrollbar {
   width: 4px;
 }
-*::-webkit-scrollbar-track {
+.main :deep(.cm-editor .cm-scroller)::-webkit-scrollbar {
+  height: 4px;
+}
+*::-webkit-scrollbar-track,
+.main :deep(.cm-editor .cm-scroller)::-webkit-scrollbar-track {
   background: #ffffff00;
 }
-*::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb,
+.main :deep(.cm-editor .cm-scroller)::-webkit-scrollbar-thumb {
   background-color: #008080;
   border-radius: 10px;
   border: 0px none #ffffff;
