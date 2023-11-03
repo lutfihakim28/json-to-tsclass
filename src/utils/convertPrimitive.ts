@@ -1,10 +1,7 @@
+import { snakeToCamel } from '@/tools/snakeToCamel'
+
 export function convertPrimitive(key: string, value: unknown): string {
-  console.log(value)
-  const keys = key.split('_')
-  const convertedKey = keys.map((key, index) => {
-    if (index === 0) return key
-    return key.charAt(0).toUpperCase() + key.slice(1)
-  }).join('')
+  const convertedKey = snakeToCamel(key)
   return `  @Expose({ name: '${key}' })
   public ${convertedKey}: ${value !== null ? typeof value : 'any'}`
 }

@@ -1,3 +1,4 @@
+import { snakeToPascal } from '@/tools/snakeToPascal'
 import { convertArray } from './convertArray'
 import { convertObject } from './convertObject'
 import { convertPrimitive } from './convertPrimitive'
@@ -18,11 +19,8 @@ export function convertJSON(value: Record<string, unknown>, key?: string) {
     convertedKey = keys.map((key) => {
       return key.charAt(0).toUpperCase() + key.slice(1)
     }).join('')
-    // convertedKey = keys.length > 1
-    //   ? keys[0].charAt(0).toUpperCase() + keys[0].slice(1) + keys[1].charAt(0).toUpperCase() + keys[1].slice(1)
-    //   : keys[0].charAt(0).toUpperCase() + keys[0].slice(1)
   }
-  const results = [`export class ${key ? convertedKey : 'Data'} {`]
+  const results = [`\nexport class ${key ? convertedKey : 'Data'} {`]
   let isNested = false
   Object.keys(value).forEach((key, index) => {
     if (typeof value[key] === 'object' && value[key] !== null && !(value[key] instanceof Array)) {
@@ -46,7 +44,12 @@ export function convertJSON(value: Record<string, unknown>, key?: string) {
     }
   })
   if (isNested) {
-    results.unshift("import { Expose, Type } from 'class-transformer'\n")
+    const keys = [...nestedDataKey]
+    keys.sort()
+    keys.forEach((key) => {
+      results.unshift(`import { ${snakeToPascal(key)} } from './${snakeToPascal(key)}'`)
+    })
+    results.unshift(`import { Expose, Type } from 'class-transformer'`)
   } else {
     results.unshift("import { Expose } from 'class-transformer'\n")
   }
@@ -56,6 +59,7 @@ export function convertJSON(value: Record<string, unknown>, key?: string) {
       convertJSON(data, nestedDataKey[index])
     })
   }
+
 
   return classes
 }

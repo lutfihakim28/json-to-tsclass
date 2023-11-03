@@ -4,6 +4,7 @@ import { ref, computed } from 'vue'
 import { convertJSON, resetClasses } from '@/utils/convertJSON'
 import { json } from '@codemirror/lang-json'
 import { oneDark } from '@codemirror/theme-one-dark'
+import { typescriptLanguage } from '@codemirror/lang-javascript'
 
 const jsonText = ref()
 const ts = ref<string[]>()
@@ -91,7 +92,7 @@ function download() {
         <button @click="generate" class="generate-button">Generate</button>
         <button @click="download" class="generate-button" :style="{ opacity: ts && ts?.length ? 1 : 0, pointerEvents: ts && ts?.length ? 'auto' : 'none' }">Download All</button>
       </section>
-      <section style="flex: 1 1 0; overflow-y: auto; display: flex; flex-direction: column; position: relative; row-gap: 8px; background-color: #282c34; border-radius: 8px; border: 1px solid teal; padding: 8px;">
+      <section style="flex: 1 1 0; overflow-y: auto; display: flex; flex-direction: column; position: relative; row-gap: 8px; background-color: #181818; border-radius: 8px; border: 1px solid teal; padding: 8px;">
         <section v-for="(result, index) in results" :key="index" class="result-container">
           <div class="result-header">
             <p>{{ result.className }}</p>
@@ -108,8 +109,25 @@ function download() {
               </button>
             </section>
           </div>
-          <section style="padding: 16px;">
-            <pre>{{ result.value }}</pre>
+          <section>
+            <Codemirror v-model="result.value" disabled style="min-height: 100%; height: 100%;" :extensions="[typescriptLanguage, oneDark]" />
+
+            <!-- <pre>{{ result.value }}</pre> -->
+            <!-- <pre>
+              <div style="
+                display: flex;
+                flex-direction: column;
+                row-gap: 16px;
+                margin: -24px 0 -48px 0;
+              ">
+                <div><span>import</span> <span>{</span> <span>Expose</span><span>,</span> <span>Type</span> <span>}</span> <span>from</span> <span>'class-transformer'</span></div>
+                <div style="margin-bottom: -16px;"><span>export</span> <span>class</span> <span>Data</span> <span>{</span></div>
+                <div style="display: flex; flex-direction: column;">
+                  <div>&nbsp;&nbsp;<span>@</span><span>Expose</span></div>
+                </div>
+                <div style="margin-top: -16px;"><span>}</span></div>
+              </div>
+            </pre> -->
           </section>
         </section>
         <p v-if="!ts || ts?.length === 0" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; font-style: italic;">Please Input a JSON first</p>
@@ -128,6 +146,7 @@ function download() {
 }
 .main :deep(.cm-editor .cm-scroller)::-webkit-scrollbar {
   height: 4px;
+  width: 4px;
 }
 *::-webkit-scrollbar-track,
 .main :deep(.cm-editor .cm-scroller)::-webkit-scrollbar-track {
@@ -224,4 +243,5 @@ function download() {
 .copy-button:hover {
   opacity: 0.8;
 }
+
 </style>
