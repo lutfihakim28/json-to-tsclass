@@ -4,7 +4,6 @@ import { ref, computed } from 'vue'
 import { convertJSON, resetClasses } from '@/utils/convertJSON'
 import { json } from '@codemirror/lang-json'
 import { oneDark } from '@codemirror/theme-one-dark'
-import * as JSZip from 'jszip'
 
 const jsonText = ref()
 const ts = ref<string[]>()
@@ -43,8 +42,9 @@ function downloadSingle(fileName: string, value: string) {
   document.body.removeChild(link)
 }
 
-function downloadAll() {
-  const zip = new JSZip()
+async function downloadAll() {
+  const JSZip = await import('jszip/dist/jszip');
+  const zip = new JSZip.default();
   const dtos = zip.folder('dtos')
   results.value.forEach((result) => {
     dtos.file(result.className, result.value)
